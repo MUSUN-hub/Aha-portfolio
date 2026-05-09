@@ -1,0 +1,1166 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EduTree - 임팩트 있는 교육 콘텐츠</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+
+    body {
+      font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+      color: #222;
+      background: #fff;
+    }
+
+    /* ── NAV ── */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 999;
+      background: rgba(255, 255, 255, 0.97);
+      border-bottom: 1px solid #eee;
+    }
+
+    nav {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      height: 68px;
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: 800;
+      color: #1a5fb4;
+      letter-spacing: -0.5px;
+    }
+
+    .logo span {
+      color: #f5a623;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      color: #444;
+      letter-spacing: 0.5px;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: #1a5fb4;
+    }
+
+    .nav-cta {
+      background: #1a5fb4;
+      color: #fff !important;
+      padding: 8px 20px;
+      border-radius: 6px;
+      transition: background 0.2s !important;
+    }
+
+    .nav-cta:hover {
+      background: #154ea0 !important;
+      color: #fff !important;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #0d2f6e 0%, #1a5fb4 50%, #2176cc 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 100px 24px 60px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -100px;
+      right: -100px;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.07) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -80px;
+      left: -80px;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(245, 166, 35, 0.15) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(245, 166, 35, 0.2);
+      border: 1px solid rgba(245, 166, 35, 0.5);
+      color: #f5c842;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 6px 18px;
+      border-radius: 999px;
+      margin-bottom: 28px;
+      letter-spacing: 1px;
+    }
+
+    .hero h1 {
+      font-size: clamp(32px, 5vw, 58px);
+      font-weight: 900;
+      color: #fff;
+      line-height: 1.25;
+      margin-bottom: 20px;
+      letter-spacing: -1px;
+    }
+
+    .hero h1 em {
+      font-style: normal;
+      color: #f5a623;
+    }
+
+    .hero p {
+      font-size: clamp(15px, 2vw, 18px);
+      color: rgba(255, 255, 255, 0.8);
+      line-height: 1.8;
+      max-width: 600px;
+      margin: 0 auto 40px;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .btn-primary {
+      background: #f5a623;
+      color: #fff;
+      border: none;
+      padding: 16px 36px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 18px rgba(245, 166, 35, 0.4);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(245, 166, 35, 0.5);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: #fff;
+      border: 2px solid rgba(255, 255, 255, 0.5);
+      padding: 14px 34px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .btn-outline:hover {
+      border-color: #fff;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    /* ── STATS STRIP ── */
+    .stats {
+      background: #fff;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .stats-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0;
+    }
+
+    .stat-item {
+      flex: 1;
+      min-width: 180px;
+      text-align: center;
+      padding: 36px 20px;
+      border-right: 1px solid #f0f0f0;
+    }
+
+    .stat-item:last-child {
+      border-right: none;
+    }
+
+    .stat-num {
+      font-size: 40px;
+      font-weight: 900;
+      color: #1a5fb4;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .stat-num span {
+      color: #f5a623;
+    }
+
+    .stat-label {
+      font-size: 13px;
+      color: #888;
+      font-weight: 500;
+    }
+
+    /* ── SECTION COMMON ── */
+    section {
+      padding: 80px 24px;
+    }
+
+    .section-tag {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 700;
+      color: #1a5fb4;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-size: clamp(24px, 3.5vw, 38px);
+      font-weight: 900;
+      line-height: 1.3;
+      margin-bottom: 16px;
+      letter-spacing: -0.5px;
+    }
+
+    .section-sub {
+      font-size: 16px;
+      color: #666;
+      line-height: 1.8;
+      max-width: 560px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* ── SERVICES ── */
+    .services {
+      background: #f8faff;
+    }
+
+    .services-header {
+      text-align: center;
+      margin-bottom: 56px;
+    }
+
+    .services-header .section-sub {
+      margin: 0 auto;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      gap: 24px;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 36px 28px;
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.06);
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 36px rgba(26, 95, 180, 0.12);
+    }
+
+    .card-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      margin-bottom: 20px;
+    }
+
+    .icon-blue {
+      background: #e8f0fd;
+    }
+
+    .icon-orange {
+      background: #fff4e0;
+    }
+
+    .icon-green {
+      background: #e6f7f0;
+    }
+
+    .icon-purple {
+      background: #f0eaff;
+    }
+
+    .card h3 {
+      font-size: 18px;
+      font-weight: 800;
+      margin-bottom: 10px;
+      color: #1a1a2e;
+    }
+
+    .card p {
+      font-size: 14px;
+      color: #777;
+      line-height: 1.8;
+    }
+
+    /* ── FEATURE ROW ── */
+    .feature-row {
+      display: flex;
+      align-items: center;
+      gap: 60px;
+      flex-wrap: wrap;
+    }
+
+    .feature-row.reverse {
+      flex-direction: row-reverse;
+    }
+
+    .feature-text {
+      flex: 1;
+      min-width: 280px;
+    }
+
+    .feature-text h2 {
+      font-size: clamp(22px, 3vw, 34px);
+      font-weight: 900;
+      line-height: 1.35;
+      margin-bottom: 16px;
+      letter-spacing: -0.5px;
+    }
+
+    .feature-text p {
+      font-size: 15px;
+      color: #666;
+      line-height: 1.9;
+      margin-bottom: 24px;
+    }
+
+    .feature-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .feature-list li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      color: #444;
+      font-weight: 500;
+    }
+
+    .feature-list li::before {
+      content: '✓';
+      width: 22px;
+      height: 22px;
+      background: #1a5fb4;
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 900;
+      flex-shrink: 0;
+    }
+
+    .feature-visual {
+      flex: 1;
+      min-width: 280px;
+      background: linear-gradient(135deg, #e8f0fd 0%, #d0e2ff 100%);
+      border-radius: 20px;
+      height: 340px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feature-visual::before {
+      content: '';
+      position: absolute;
+      top: -40px;
+      right: -40px;
+      width: 160px;
+      height: 160px;
+      background: rgba(26, 95, 180, 0.1);
+      border-radius: 50%;
+    }
+
+    .feature-visual.orange-bg {
+      background: linear-gradient(135deg, #fff4e0 0%, #ffe0b0 100%);
+    }
+
+    .feature-visual.orange-bg::before {
+      background: rgba(245, 166, 35, 0.1);
+    }
+
+    /* ── PORTFOLIO PREVIEW ── */
+    .portfolio {
+      background: #fff;
+    }
+
+    .portfolio .section-tag {
+      color: #1a5fb4;
+    }
+
+    .portfolio .section-title {
+      color: #111;
+    }
+
+    .portfolio .section-sub {
+      color: #666;
+    }
+
+    .portfolio-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .portfolio-more {
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    .btn-more {
+      display: inline-block;
+      padding: 14px 60px;
+      border: 2px solid #333;
+      color: #333;
+      font-size: 15px;
+      font-weight: 700;
+      text-decoration: none;
+      border-radius: 4px;
+      transition: background 0.2s, color 0.2s;
+      cursor: pointer;
+      background: #fff;
+    }
+
+    .btn-more:hover {
+      background: #333;
+      color: #fff;
+    }
+
+    .portfolio-grid-wrap {
+      height: calc((min(1180px, 100vw - 96px) / 3) * (10 / 16) * 3 + 24px);
+      overflow-y: scroll;
+      padding-right: 8px;
+    }
+
+    .portfolio-grid-wrap::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .portfolio-grid-wrap::-webkit-scrollbar-track {
+      background: #eee;
+      border-radius: 3px;
+    }
+
+    .portfolio-grid-wrap::-webkit-scrollbar-thumb {
+      background: #1a5fb4;
+      border-radius: 3px;
+    }
+
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .portfolio-item {
+      border-radius: 12px;
+      overflow: hidden;
+      cursor: pointer;
+      position: relative;
+      aspect-ratio: 16 / 10;
+      background: #1a1a2e;
+    }
+
+    .portfolio-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.3s;
+    }
+
+    .portfolio-item:hover img {
+      transform: scale(1.05);
+    }
+
+    .portfolio-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, transparent 50%);
+      opacity: 0;
+      transition: opacity 0.3s;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 16px;
+    }
+
+    .portfolio-item:hover .portfolio-overlay {
+      opacity: 1;
+    }
+
+    .portfolio-overlay .tag {
+      font-size: 11px;
+      font-weight: 700;
+      color: #f5a623;
+      letter-spacing: 1px;
+      margin-bottom: 4px;
+    }
+
+    .portfolio-overlay h4 {
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.4;
+    }
+
+    /* 이미지 없을 때 fallback 썸네일 */
+    .portfolio-thumb-fallback {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-size: 36px;
+    }
+
+    .thumb-1 {
+      background: linear-gradient(135deg, #0a3d8f, #1a5fb4);
+    }
+
+    .thumb-2 {
+      background: linear-gradient(135deg, #00897b, #26c6da);
+    }
+
+    .thumb-3 {
+      background: linear-gradient(135deg, #1565c0, #42a5f5);
+    }
+
+    .thumb-4 {
+      background: linear-gradient(135deg, #6a1b9a, #ab47bc);
+    }
+
+    .thumb-5 {
+      background: linear-gradient(135deg, #e65100, #ffa726);
+    }
+
+    .thumb-6 {
+      background: linear-gradient(135deg, #1b5e20, #66bb6a);
+    }
+
+    /* ── CLIENTS ── */
+    .clients {
+      background: #fff;
+      text-align: center;
+    }
+
+    .clients-header {
+      margin-bottom: 48px;
+    }
+
+    .client-logos {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 16px;
+    }
+
+    .client-logo {
+      background: #f5f7ff;
+      border: 1px solid #e4eaf7;
+      border-radius: 12px;
+      padding: 16px 28px;
+      font-size: 14px;
+      font-weight: 700;
+      color: #555;
+      min-width: 130px;
+      text-align: center;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .client-logo:hover {
+      border-color: #1a5fb4;
+      color: #1a5fb4;
+    }
+
+    /* ── CTA BANNER ── */
+    /* ── MODAL ── */
+    .modal-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.85);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-backdrop.active {
+      display: flex;
+    }
+
+    .modal-box {
+      position: relative;
+      width: 90%;
+      max-width: 900px;
+      aspect-ratio: 16 / 9;
+      background: #000;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .modal-box iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: -40px;
+      right: 0;
+      color: #fff;
+      font-size: 32px;
+      cursor: pointer;
+      line-height: 1;
+      background: none;
+      border: none;
+      padding: 0;
+    }
+
+    /* ── CONTACT ── */
+    .contact {
+      background: linear-gradient(135deg, #f5a623 0%, #e08a00 100%);
+      padding: 80px 24px;
+    }
+
+    .contact-inner {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .contact-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .contact-header h2 {
+      font-size: clamp(24px, 4vw, 38px);
+      font-weight: 900;
+      color: #fff;
+      margin-bottom: 10px;
+      letter-spacing: -0.5px;
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+    }
+
+    .contact-header p {
+      font-size: 15px;
+      color: rgba(255, 255, 255, 0.9);
+      font-weight: 500;
+    }
+
+    .contact-form {
+      background: #fff;
+      border-radius: 16px;
+      padding: 40px;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.07);
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .form-row {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-row label {
+      font-size: 13px;
+      font-weight: 700;
+      color: #222;
+    }
+
+    .form-row label span {
+      color: #e05c00;
+      margin-left: 2px;
+    }
+
+    .form-row input,
+    .form-row textarea,
+    .form-row select {
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 12px 14px;
+      font-size: 14px;
+      color: #222;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.2s;
+      width: 100%;
+    }
+
+    .form-row input:focus,
+    .form-row textarea:focus,
+    .form-row select:focus {
+      border-color: #1a5fb4;
+    }
+
+    .form-row textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    .agree-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      background: #fff8ee;
+      border: 1px solid rgba(224, 138, 0, 0.3);
+      border-radius: 8px;
+      padding: 14px 16px;
+      font-size: 13px;
+      color: #444;
+      line-height: 1.6;
+    }
+
+    .agree-row input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      margin-top: 2px;
+      accent-color: #1a5fb4;
+      flex-shrink: 0;
+      cursor: pointer;
+    }
+
+    .agree-row a {
+      color: #1a5fb4;
+      text-decoration: underline;
+    }
+
+    .btn-submit {
+      background: #1a5fb4;
+      color: #fff;
+      border: none;
+      padding: 16px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background 0.2s, opacity 0.2s;
+      width: 100%;
+    }
+
+    .btn-submit:disabled {
+      background: #bbb;
+      cursor: not-allowed;
+      opacity: 0.7;
+    }
+
+    .btn-submit:not(:disabled):hover {
+      background: #154ea0;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #111827;
+      color: rgba(255, 255, 255, 0.6);
+      padding: 48px 24px 32px;
+    }
+
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px;
+      justify-content: space-between;
+      margin-bottom: 40px;
+    }
+
+    .footer-brand .logo {
+      color: #fff;
+      font-size: 20px;
+    }
+
+    .footer-brand p {
+      font-size: 13px;
+      margin-top: 10px;
+      line-height: 1.7;
+      max-width: 260px;
+    }
+
+    .footer-links h4 {
+      color: #fff;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    .footer-links ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .footer-links a {
+      text-decoration: none;
+      color: rgba(255, 255, 255, 0.55);
+      font-size: 13px;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: #fff;
+    }
+
+    .footer-contact h4 {
+      color: #fff;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    .footer-contact p {
+      font-size: 13px;
+      line-height: 2;
+    }
+
+    .footer-bottom {
+      max-width: 1200px;
+      margin: 0 auto;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 24px;
+      font-size: 12px;
+      text-align: center;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+
+      .stat-item {
+        min-width: 140px;
+      }
+
+      .feature-row,
+      .feature-row.reverse {
+        flex-direction: column;
+      }
+
+      .footer-inner {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAV -->
+  <header>
+    <nav>
+      <div class="logo">Aha</div>
+      <ul class="nav-links">
+        <li><a href="#portfolio">PORTFOLIO</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <h1>공감과 여운을 남기는<br /><em>임팩트 있는 영상</em></h1>
+    <p>홍보영상 · 교육영상 · 이러닝 콘텐츠까지<br />기획부터 제작까지 한 번에 해결합니다.</p>
+    <div class="hero-btns">
+      <a href="#portfolio" class="btn-primary">포트폴리오 보기</a>
+      <a href="#" class="btn-outline">문의하기</a>
+    </div>
+  </section>
+
+
+  <!-- SERVICES -->
+  <section class="services">
+    <div class="container">
+      <div class="services-header">
+        <div class="section-tag">OUR SERVICE</div>
+        <h2 class="section-title">다양한 영상 제작 서비스</h2>
+        <p class="section-sub">이러닝부터 홍보영상까지, 목적에 맞는 최적의 콘텐츠를 제작합니다.</p>
+      </div>
+      <div class="cards">
+        <div class="card">
+          <div class="card-icon icon-blue">🎓</div>
+          <h3>이러닝 콘텐츠</h3>
+          <p>KMOOC, 공무원 교육, 기업 연수 등 다양한 이러닝 강의 콘텐츠를 체계적으로 제작합니다.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon icon-orange">📢</div>
+          <h3>홍보 영상</h3>
+          <p>브랜드 스토리를 담은 임팩트 있는 홍보영상으로 타깃 고객에게 효과적으로 전달합니다.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon icon-green">🎬</div>
+          <h3>교육 영상</h3>
+          <p>복잡한 내용도 쉽고 명확하게 전달하는 교육영상을 기획·촬영·편집까지 원스톱으로 제공합니다.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon icon-purple">✨</div>
+          <h3>모션그래픽</h3>
+          <p>데이터와 개념을 시각적으로 표현하는 고품질 애니메이션 및 모션그래픽 콘텐츠를 제작합니다.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- PORTFOLIO -->
+  <section class="portfolio" id="portfolio">
+    <div class="container">
+      <div class="portfolio-header">
+        <h2 class="section-title" style="font-size: clamp(32px, 5vw, 56px); font-weight: 900; letter-spacing: -1px;">
+          PORTFOLIO</h2>
+        <p class="section-sub" style="margin: 12px auto 0;">다양한 온라인 교육의 노하우를 통해 전문성을 검증받은 E-Learning 전문기업</p>
+      </div>
+      <div class="portfolio-grid-wrap">
+        <div class="portfolio-grid" id="portfolioGrid"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MODAL -->
+  <div class="modal-backdrop" id="videoModal">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeModal()">✕</button>
+      <iframe id="modalIframe" src="" allowfullscreen allow="autoplay"></iframe>
+    </div>
+  </div>
+
+  <!-- CONTACT -->
+  <section class="contact">
+    <div class="contact-inner">
+      <div class="contact-header">
+        <h2>상담 문의</h2>
+        <p>문의 내용을 남겨주시면 빠르게 연락드리겠습니다.</p>
+      </div>
+      <form class="contact-form" onsubmit="return false;">
+        <div class="form-row">
+          <label>이름 <span>*</span></label>
+          <input type="text" placeholder="이름을 입력해주세요" />
+        </div>
+        <div class="form-row">
+          <label>연락처 <span>*</span></label>
+          <input type="tel" placeholder="010-0000-0000" />
+        </div>
+        <div class="form-row">
+          <label>이메일</label>
+          <input type="email" placeholder="example@email.com" />
+        </div>
+        <div class="form-row">
+          <label>문의 유형</label>
+          <select>
+            <option value="">선택해주세요</option>
+            <option>이러닝 콘텐츠 제작</option>
+            <option>홍보 영상 제작</option>
+            <option>교육 영상 제작</option>
+            <option>모션그래픽 제작</option>
+            <option>기타</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label>문의 내용 <span>*</span></label>
+          <textarea placeholder="문의하실 내용을 자유롭게 작성해주세요."></textarea>
+        </div>
+        <label class="agree-row">
+          <input type="checkbox" id="agreeCheck" onchange="toggleSubmit(this)" />
+          <span>
+            <strong>[필수]</strong> 개인정보 수집·이용에 동의합니다.<br />
+            수집 항목: 이름, 연락처, 이메일 / 목적: 상담 문의 처리 / 보유기간: 문의 처리 완료 후 즉시 파기
+          </span>
+        </label>
+        <button class="btn-submit" id="submitBtn" disabled>신청하기</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="logo">A<span>ha</span></div>
+        <p>공감과 여운을 남기는<br />임팩트 있는 교육 콘텐츠를 만듭니다.</p>
+      </div>
+      <div class="footer-links">
+        <h4>서비스</h4>
+        <ul>
+          <li><a href="#">이러닝 콘텐츠</a></li>
+          <li><a href="#">홍보 영상</a></li>
+          <li><a href="#">교육 영상</a></li>
+          <li><a href="#">모션그래픽</a></li>
+        </ul>
+      </div>
+      <div class="footer-contact">
+        <h4>연락처</h4>
+        <p>
+          📞 02-0000-0000<br />
+          📧 hello@edutree.co.kr<br />
+          🕐 평일 09:00 – 18:00<br />
+          <!--📍 서울특별시 강남구 -->
+        </p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © 2026 Aha. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    const portfolioData = [
+      { tag: '홍보영상', title: '개인정보처리방침 안내 영상', thumb: 'thumb-1', url: 'https://youtu.be/q2HPRYLZPTc' },
+      { tag: '모션그래픽', title: '한국동서발전 개인정보 처리방침', thumb: 'thumb-2', url: '' },
+      { tag: '교육영상', title: '개인정보 보호 강의 콘텐츠', thumb: 'thumb-3', url: '' },
+      { tag: '이러닝', title: '파이브세컨즈 크리에이터 교육', thumb: 'thumb-5', url: '' },
+      { tag: 'KMOOC', title: '이미지 메이킹 - 인상의 개념과 중요성', thumb: 'thumb-3', url: '' },
+      { tag: '교육영상', title: '문화 콘텐츠 외국인 콘텐츠 강의', thumb: 'thumb-1', url: '' },
+      { tag: '홍보영상', title: '대학 캠퍼스 홍보 영상', thumb: 'thumb-6', url: '' },
+      { tag: '교육영상', title: 'N잡러의 시대 강의 콘텐츠', thumb: 'thumb-4', url: '' },
+      { tag: '이러닝', title: 'NumPy 데이터 분석 온라인 강좌', thumb: 'thumb-2', url: '' },
+      { tag: '이러닝', title: '국가교육부 공무원 연수 콘텐츠', thumb: 'thumb-5', url: '' },
+      { tag: '홍보영상', title: '대기업 신입사원 온보딩 영상', thumb: 'thumb-1', url: '' },
+      { tag: '모션그래픽', title: '금융상품 설명 인포그래픽 영상', thumb: 'thumb-4', url: '' },
+      { tag: '교육영상', title: '과학기술정보통신부 연구 교육', thumb: 'thumb-3', url: '' },
+      { tag: '홍보영상', title: '신제품 런칭 브랜드 필름', thumb: 'thumb-6', url: '' },
+      { tag: '이러닝', title: '법무부 법교육 온라인 콘텐츠', thumb: 'thumb-2', url: '' },
+      { tag: '모션그래픽', title: '글로벌 기업 성과 보고 영상', thumb: 'thumb-5', url: '' },
+    ];
+
+    const grid = document.getElementById('portfolioGrid');
+    portfolioData.forEach((item, i) => {
+      const num = i + 1;
+      const imgSrc = `img/${num}.png`;
+      const clickAttr = item.url ? `onclick="openModal('${item.url}')" style="cursor:pointer;"` : '';
+      grid.innerHTML += `
+        <div class="portfolio-item" ${clickAttr}>
+          <img src="${imgSrc}" alt="${item.title}"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+               onload="this.nextElementSibling.style.display='none';" />
+          <div class="portfolio-thumb-fallback ${item.thumb}" style="display:none;">${num}</div>
+          <div class="portfolio-overlay">
+            <div class="tag">${item.tag}</div>
+            <h4>${item.title}</h4>
+          </div>
+        </div>`;
+    });
+
+    function openModal(url) {
+      const videoId = url.match(/(?:v=|youtu\.be\/)([^&?/]+)/)?.[1];
+      const embedUrl = videoId
+        ? `https://www.youtube.com/embed/${videoId}?autoplay=1`
+        : url;
+      document.getElementById('modalIframe').src = embedUrl;
+      document.getElementById('videoModal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      document.getElementById('modalIframe').src = '';
+      document.getElementById('videoModal').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    document.getElementById('videoModal').addEventListener('click', function (e) {
+      if (e.target === this) closeModal();
+    });
+
+    function toggleSubmit(checkbox) {
+      document.getElementById('submitBtn').disabled = !checkbox.checked;
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+      link.addEventListener('click', function (e) {
+        const href = this.getAttribute('href');
+        if (href === '#' || href.length < 2) return;
+        const target = document.querySelector(href);
+        if (!target) return;
+        e.preventDefault();
+        const start = window.scrollY;
+        const end = target.getBoundingClientRect().top + window.scrollY - 68;
+        const duration = 800;
+        const startTime = performance.now();
+        function ease(t) { return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t; }
+        function step(now) {
+          const elapsed = now - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+          window.scrollTo(0, start + (end - start) * ease(progress));
+          if (progress < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      });
+    });
+  </script>
+</body>
+
+</html>

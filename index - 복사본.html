@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EduTree - 임팩트 있는 교육 콘텐츠</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+      color: #222;
+      background: #fff;
+    }
+
+    /* ── NAV ── */
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 999;
+      background: rgba(255,255,255,0.97);
+      border-bottom: 1px solid #eee;
+    }
+
+    nav {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      height: 68px;
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: 800;
+      color: #1a5fb4;
+      letter-spacing: -0.5px;
+    }
+
+    .logo span { color: #f5a623; }
+
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      color: #444;
+      letter-spacing: 0.5px;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: #1a5fb4; }
+
+    .nav-cta {
+      background: #1a5fb4;
+      color: #fff !important;
+      padding: 8px 20px;
+      border-radius: 6px;
+      transition: background 0.2s !important;
+    }
+
+    .nav-cta:hover { background: #154ea0 !important; color: #fff !important; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #0d2f6e 0%, #1a5fb4 50%, #2176cc 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 100px 24px 60px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -100px; right: -100px;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(255,255,255,0.07) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -80px; left: -80px;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(245,166,35,0.15) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(245,166,35,0.2);
+      border: 1px solid rgba(245,166,35,0.5);
+      color: #f5c842;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 6px 18px;
+      border-radius: 999px;
+      margin-bottom: 28px;
+      letter-spacing: 1px;
+    }
+
+    .hero h1 {
+      font-size: clamp(32px, 5vw, 58px);
+      font-weight: 900;
+      color: #fff;
+      line-height: 1.25;
+      margin-bottom: 20px;
+      letter-spacing: -1px;
+    }
+
+    .hero h1 em {
+      font-style: normal;
+      color: #f5a623;
+    }
+
+    .hero p {
+      font-size: clamp(15px, 2vw, 18px);
+      color: rgba(255,255,255,0.8);
+      line-height: 1.8;
+      max-width: 600px;
+      margin: 0 auto 40px;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .btn-primary {
+      background: #f5a623;
+      color: #fff;
+      border: none;
+      padding: 16px 36px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 18px rgba(245,166,35,0.4);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(245,166,35,0.5);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: #fff;
+      border: 2px solid rgba(255,255,255,0.5);
+      padding: 14px 34px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .btn-outline:hover {
+      border-color: #fff;
+      background: rgba(255,255,255,0.1);
+    }
+
+    /* ── STATS STRIP ── */
+    .stats {
+      background: #fff;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .stats-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0;
+    }
+
+    .stat-item {
+      flex: 1;
+      min-width: 180px;
+      text-align: center;
+      padding: 36px 20px;
+      border-right: 1px solid #f0f0f0;
+    }
+
+    .stat-item:last-child { border-right: none; }
+
+    .stat-num {
+      font-size: 40px;
+      font-weight: 900;
+      color: #1a5fb4;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .stat-num span { color: #f5a623; }
+
+    .stat-label {
+      font-size: 13px;
+      color: #888;
+      font-weight: 500;
+    }
+
+    /* ── SECTION COMMON ── */
+    section { padding: 80px 24px; }
+
+    .section-tag {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 700;
+      color: #1a5fb4;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-size: clamp(24px, 3.5vw, 38px);
+      font-weight: 900;
+      line-height: 1.3;
+      margin-bottom: 16px;
+      letter-spacing: -0.5px;
+    }
+
+    .section-sub {
+      font-size: 16px;
+      color: #666;
+      line-height: 1.8;
+      max-width: 560px;
+    }
+
+    .container { max-width: 1200px; margin: 0 auto; }
+
+    /* ── SERVICES ── */
+    .services { background: #f8faff; }
+
+    .services-header { text-align: center; margin-bottom: 56px; }
+    .services-header .section-sub { margin: 0 auto; }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      gap: 24px;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 36px 28px;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 36px rgba(26,95,180,0.12);
+    }
+
+    .card-icon {
+      width: 56px; height: 56px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      margin-bottom: 20px;
+    }
+
+    .icon-blue { background: #e8f0fd; }
+    .icon-orange { background: #fff4e0; }
+    .icon-green { background: #e6f7f0; }
+    .icon-purple { background: #f0eaff; }
+
+    .card h3 {
+      font-size: 18px;
+      font-weight: 800;
+      margin-bottom: 10px;
+      color: #1a1a2e;
+    }
+
+    .card p {
+      font-size: 14px;
+      color: #777;
+      line-height: 1.8;
+    }
+
+    /* ── FEATURE ROW ── */
+    .feature-row {
+      display: flex;
+      align-items: center;
+      gap: 60px;
+      flex-wrap: wrap;
+    }
+
+    .feature-row.reverse { flex-direction: row-reverse; }
+
+    .feature-text { flex: 1; min-width: 280px; }
+
+    .feature-text h2 {
+      font-size: clamp(22px, 3vw, 34px);
+      font-weight: 900;
+      line-height: 1.35;
+      margin-bottom: 16px;
+      letter-spacing: -0.5px;
+    }
+
+    .feature-text p {
+      font-size: 15px;
+      color: #666;
+      line-height: 1.9;
+      margin-bottom: 24px;
+    }
+
+    .feature-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .feature-list li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      color: #444;
+      font-weight: 500;
+    }
+
+    .feature-list li::before {
+      content: '✓';
+      width: 22px; height: 22px;
+      background: #1a5fb4;
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 900;
+      flex-shrink: 0;
+    }
+
+    .feature-visual {
+      flex: 1;
+      min-width: 280px;
+      background: linear-gradient(135deg, #e8f0fd 0%, #d0e2ff 100%);
+      border-radius: 20px;
+      height: 340px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feature-visual::before {
+      content: '';
+      position: absolute;
+      top: -40px; right: -40px;
+      width: 160px; height: 160px;
+      background: rgba(26,95,180,0.1);
+      border-radius: 50%;
+    }
+
+    .feature-visual.orange-bg {
+      background: linear-gradient(135deg, #fff4e0 0%, #ffe0b0 100%);
+    }
+
+    .feature-visual.orange-bg::before {
+      background: rgba(245,166,35,0.1);
+    }
+
+    /* ── PORTFOLIO PREVIEW ── */
+    .portfolio { background: #0d2f6e; }
+
+    .portfolio .section-tag { color: #f5a623; }
+    .portfolio .section-title { color: #fff; }
+    .portfolio .section-sub { color: rgba(255,255,255,0.65); }
+
+    .portfolio-header { margin-bottom: 48px; }
+
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+    }
+
+    .portfolio-item {
+      border-radius: 14px;
+      overflow: hidden;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.1);
+      transition: transform 0.25s;
+      cursor: pointer;
+    }
+
+    .portfolio-item:hover { transform: scale(1.03); }
+
+    .portfolio-thumb {
+      height: 160px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 48px;
+    }
+
+    .thumb-1 { background: linear-gradient(135deg, #1a5fb4, #2176cc); }
+    .thumb-2 { background: linear-gradient(135deg, #e05c00, #f5a623); }
+    .thumb-3 { background: linear-gradient(135deg, #1a7f4b, #34c47d); }
+    .thumb-4 { background: linear-gradient(135deg, #6b21a8, #a855f7); }
+
+    .portfolio-info { padding: 18px; }
+
+    .portfolio-info .tag {
+      font-size: 11px;
+      font-weight: 700;
+      color: #f5a623;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .portfolio-info h4 {
+      font-size: 15px;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    /* ── CLIENTS ── */
+    .clients { background: #fff; text-align: center; }
+
+    .clients-header { margin-bottom: 48px; }
+
+    .client-logos {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 16px;
+    }
+
+    .client-logo {
+      background: #f5f7ff;
+      border: 1px solid #e4eaf7;
+      border-radius: 12px;
+      padding: 16px 28px;
+      font-size: 14px;
+      font-weight: 700;
+      color: #555;
+      min-width: 130px;
+      text-align: center;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .client-logo:hover {
+      border-color: #1a5fb4;
+      color: #1a5fb4;
+    }
+
+    /* ── CTA BANNER ── */
+    .cta-banner {
+      background: linear-gradient(135deg, #f5a623 0%, #e08a00 100%);
+      text-align: center;
+      padding: 72px 24px;
+    }
+
+    .cta-banner h2 {
+      font-size: clamp(24px, 4vw, 40px);
+      font-weight: 900;
+      color: #fff;
+      margin-bottom: 14px;
+      letter-spacing: -0.5px;
+    }
+
+    .cta-banner p {
+      font-size: 16px;
+      color: rgba(255,255,255,0.85);
+      margin-bottom: 36px;
+    }
+
+    .btn-white {
+      background: #fff;
+      color: #e08a00;
+      border: none;
+      padding: 16px 40px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 800;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    }
+
+    .btn-white:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #111827;
+      color: rgba(255,255,255,0.6);
+      padding: 48px 24px 32px;
+    }
+
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px;
+      justify-content: space-between;
+      margin-bottom: 40px;
+    }
+
+    .footer-brand .logo { color: #fff; font-size: 20px; }
+    .footer-brand p {
+      font-size: 13px;
+      margin-top: 10px;
+      line-height: 1.7;
+      max-width: 260px;
+    }
+
+    .footer-links h4 {
+      color: #fff;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    .footer-links ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .footer-links a {
+      text-decoration: none;
+      color: rgba(255,255,255,0.55);
+      font-size: 13px;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: #fff; }
+
+    .footer-contact h4 {
+      color: #fff;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    .footer-contact p { font-size: 13px; line-height: 2; }
+
+    .footer-bottom {
+      max-width: 1200px;
+      margin: 0 auto;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 24px;
+      font-size: 12px;
+      text-align: center;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .stat-item { min-width: 140px; }
+      .feature-row, .feature-row.reverse { flex-direction: column; }
+      .footer-inner { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<header>
+  <nav>
+    <div class="logo">Oda</div>
+    <ul class="nav-links">
+      <li><a href="#">PORTFOLIO</a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+<h1>공감과 여운을 남기는<br /><em>임팩트 있는 영상</em></h1>
+  <p>홍보영상 · 교육영상 · 이러닝 콘텐츠까지<br />기획부터 제작까지 한 번에 해결합니다.</p>
+  <div class="hero-btns">
+    <a href="#" class="btn-primary">포트폴리오 보기</a>
+    <a href="#" class="btn-outline">문의하기</a>
+  </div>
+</section>
+
+
+<!-- SERVICES -->
+<section class="services">
+  <div class="container">
+    <div class="services-header">
+      <div class="section-tag">OUR SERVICE</div>
+      <h2 class="section-title">다양한 영상 제작 서비스</h2>
+      <p class="section-sub">이러닝부터 홍보영상까지, 목적에 맞는 최적의 콘텐츠를 제작합니다.</p>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <div class="card-icon icon-blue">🎓</div>
+        <h3>이러닝 콘텐츠</h3>
+        <p>KMOOC, 공무원 교육, 기업 연수 등 다양한 이러닝 강의 콘텐츠를 체계적으로 제작합니다.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon icon-orange">📢</div>
+        <h3>홍보 영상</h3>
+        <p>브랜드 스토리를 담은 임팩트 있는 홍보영상으로 타깃 고객에게 효과적으로 전달합니다.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon icon-green">🎬</div>
+        <h3>교육 영상</h3>
+        <p>복잡한 내용도 쉽고 명확하게 전달하는 교육영상을 기획·촬영·편집까지 원스톱으로 제공합니다.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon icon-purple">✨</div>
+        <h3>모션그래픽</h3>
+        <p>데이터와 개념을 시각적으로 표현하는 고품질 애니메이션 및 모션그래픽 콘텐츠를 제작합니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURE 1 -->
+<section style="background:#fff;">
+  <div class="container">
+    <div class="feature-row">
+      <div class="feature-text">
+        <div class="section-tag">E-LEARNING</div>
+        <h2>전문 이러닝<br />콘텐츠 제작</h2>
+        <p>교육 목표에 맞춘 학습 설계부터 고품질 촬영, 편집, LMS 탑재까지 이러닝 콘텐츠 제작의 모든 단계를 지원합니다.</p>
+        <ul class="feature-list">
+          <li>KMOOC · 교원 연수 · 기업 교육 경험 다수</li>
+          <li>내레이션형 · 강의형 · 애니메이션형 제작</li>
+          <li>자막, 자막 번역, 접근성 지원</li>
+          <li>LMS 탑재 및 운영 컨설팅</li>
+        </ul>
+      </div>
+      <div class="feature-visual">🎓</div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURE 2 -->
+<section style="background:#f8faff;">
+  <div class="container">
+    <div class="feature-row reverse">
+      <div class="feature-text">
+        <div class="section-tag">STUDIO</div>
+        <h2>자체 스튜디오<br />완벽한 촬영 환경</h2>
+        <p>크로마키, 디지털 화이트보드, 최신 조명 장비를 갖춘 전문 스튜디오에서 최고 품질의 영상을 촬영합니다.</p>
+        <ul class="feature-list">
+          <li>크로마키 전용 스튜디오</li>
+          <li>디지털 화이트보드 · 강의 전용 공간</li>
+          <li>4K UHD 촬영 장비</li>
+          <li>전문 조명 · 음향 시스템</li>
+        </ul>
+      </div>
+      <div class="feature-visual orange-bg">🎥</div>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section class="portfolio">
+  <div class="container">
+    <div class="portfolio-header">
+      <div class="section-tag">PORTFOLIO</div>
+      <h2 class="section-title">제작 사례</h2>
+      <p class="section-sub">다양한 분야의 클라이언트와 함께한 영상 제작 포트폴리오입니다.</p>
+    </div>
+    <div class="portfolio-grid">
+      <div class="portfolio-item">
+        <div class="portfolio-thumb thumb-1">🏛️</div>
+        <div class="portfolio-info">
+          <div class="tag">이러닝</div>
+          <h4>국가교육부 공무원 연수 콘텐츠</h4>
+        </div>
+      </div>
+      <div class="portfolio-item">
+        <div class="portfolio-thumb thumb-2">📊</div>
+        <div class="portfolio-info">
+          <div class="tag">홍보영상</div>
+          <h4>대기업 신입사원 온보딩 영상</h4>
+        </div>
+      </div>
+      <div class="portfolio-item">
+        <div class="portfolio-thumb thumb-3">🎓</div>
+        <div class="portfolio-info">
+          <div class="tag">KMOOC</div>
+          <h4>유명 대학 온라인 공개강좌</h4>
+        </div>
+      </div>
+      <div class="portfolio-item">
+        <div class="portfolio-thumb thumb-4">✨</div>
+        <div class="portfolio-info">
+          <div class="tag">모션그래픽</div>
+          <h4>스타트업 서비스 소개 애니메이션</h4>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CLIENTS -->
+<section class="clients">
+  <div class="container">
+    <div class="clients-header">
+      <div class="section-tag">CLIENT</div>
+      <h2 class="section-title">함께한 고객사</h2>
+      <p class="section-sub" style="margin:0 auto;">정부기관, 대학, 대기업 등 200개 이상의 기관과 함께하고 있습니다.</p>
+    </div>
+    <div class="client-logos">
+      <div class="client-logo">교육부</div>
+      <div class="client-logo">행정안전부</div>
+      <div class="client-logo">한국방송통신대학교</div>
+      <div class="client-logo">연세대학교</div>
+      <div class="client-logo">고려대학교</div>
+      <div class="client-logo">삼성전자</div>
+      <div class="client-logo">LG CNS</div>
+      <div class="client-logo">현대자동차</div>
+      <div class="client-logo">SK텔레콤</div>
+      <div class="client-logo">KT</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<div class="cta-banner">
+  <h2>지금 바로 문의하세요</h2>
+  <p>전문 컨설턴트가 최적의 콘텐츠 제작 방향을 제안해드립니다.</p>
+  <a href="#" class="btn-white">무료 상담 신청하기 →</a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="logo">Edu<span>Tree</span></div>
+      <p>공감과 여운을 남기는<br />임팩트 있는 교육 콘텐츠를 만듭니다.</p>
+    </div>
+    <div class="footer-links">
+      <h4>서비스</h4>
+      <ul>
+        <li><a href="#">이러닝 콘텐츠</a></li>
+        <li><a href="#">홍보 영상</a></li>
+        <li><a href="#">교육 영상</a></li>
+        <li><a href="#">모션그래픽</a></li>
+      </ul>
+    </div>
+    <div class="footer-links">
+      <h4>회사</h4>
+      <ul>
+        <li><a href="#">회사 소개</a></li>
+        <li><a href="#">스튜디오</a></li>
+        <li><a href="#">포트폴리오</a></li>
+        <li><a href="#">채용</a></li>
+      </ul>
+    </div>
+    <div class="footer-contact">
+      <h4>연락처</h4>
+      <p>
+        📞 02-0000-0000<br />
+        📧 hello@edutree.co.kr<br />
+        🕐 평일 09:00 – 18:00<br />
+        📍 서울특별시 강남구
+      </p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    © 2024 EduTree. All rights reserved.
+  </div>
+</footer>
+
+</body>
+</html>
