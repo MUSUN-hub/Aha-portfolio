@@ -901,8 +901,17 @@
 
     /* ── RESPONSIVE ── */
     @media (max-width: 768px) {
+      section {
+        padding: 56px 18px;
+      }
+
       .nav-links {
         display: none;
+      }
+
+      nav {
+        padding: 0 18px;
+        height: 60px;
       }
 
       .stat-item {
@@ -914,8 +923,48 @@
         flex-direction: column;
       }
 
+      .feature-visual {
+        height: 220px;
+        font-size: 60px;
+      }
+
       .footer-inner {
         flex-direction: column;
+      }
+
+      .portfolio .section-sub {
+        white-space: normal;
+      }
+
+      .portfolio-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .portfolio-grid-wrap {
+        height: calc((100vw - 36px) * (10 / 16) * 2 + 12px);
+        padding-right: 4px;
+      }
+
+      .portfolio-overlay {
+        opacity: 1;
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.75) 0%, transparent 55%);
+      }
+
+      .contact {
+        padding: 56px 18px;
+      }
+
+      .contact-form {
+        padding: 24px;
+      }
+
+      .modal-box {
+        width: 94%;
+      }
+
+      .modal-close {
+        top: -36px;
+        font-size: 28px;
       }
     }
   </style>
